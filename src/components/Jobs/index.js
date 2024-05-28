@@ -1,5 +1,7 @@
 import {Component} from 'react'
+import Cookies from 'js-cookie'
 import Profile from '../Profile'
+import JobItem from '../JobItem'
 
 const employmentTypesList = [
   {
@@ -40,18 +42,28 @@ const salaryRangesList = [
 ]
 
 class Jobs extends Component {
-  state = {employmentType: [], minimumPackage: 0, searchQuery: ''}
+  state = {employmentType: [], minimumPackage: 0, searchQuery: '', jobsList: []}
+
+  componentDidMount() {
+    this.getJobsList()
+  }
 
   onChangeType = option => {
     const {employmentType} = this.state
     if (employmentType.includes(option)) {
-      this.setState({
-        employmentType: employmentType.filter(op => op !== option),
-      })
+      this.setState(
+        {
+          employmentType: employmentType.filter(op => op !== option),
+        },
+        this.getJobsList,
+      )
     } else {
-      this.setState({
-        employmentType: [...employmentType, option],
-      })
+      this.setState(
+        {
+          employmentType: [...employmentType, option],
+        },
+        this.getJobsList,
+      )
     }
   }
 
@@ -76,7 +88,7 @@ class Jobs extends Component {
   }
 
   onChangeSalary = salaryRange => {
-    this.setState({minimumPackage: parseInt(salaryRange)})
+    this.setState({minimumPackage: parseInt(salaryRange)}, this.getJobsList)
   }
 
   renderSalaryFilters = () => {
@@ -104,16 +116,65 @@ class Jobs extends Component {
     this.setState({searchQuery: event.target.value})
   }
 
+  getJobsList = async () => {
+    const {employmentType, minimumPackage, searchQuery} = this.state
+    const typeFilter = employmentType.join(',')
+
+    const jwtToken = Cookies.get('jwt_token')
+    const url = `https://apis.ccbp.in/jobs?employment_type=${typeFilter}&minimum_package=${minimumPackage}&search=${searchQuery}`
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+
+    const response = await fetch(url, options)
+    if (response.ok === true) {
+      const data = await response.json()
+
+      const updatedJobsList = data.jobs.map(eachJob => ({
+        id: eachJob.id,
+        title: eachJob.title,
+        rating: eachJob.rating,
+        location: eachJob.location,
+        packagePerAnnum: eachJob.package_per_annum,
+        jobDescription: eachJob.job_description,
+        companyLogoUrl: eachJob.company_logo_url,
+        employmentType: eachJob.employmentType,
+      }))
+
+      this.setState({jobsList: updatedJobsList})
+    } else {
+      console.log('Error')
+    }
+  }
+
+  renderJobsList = () => {
+    const {jobsList} = this.state
+
+    return (
+      <ul>
+        {jobsList.map(eachJob => (
+          <JobItem details={eachJob} key={eachJob.id} />
+        ))}
+      </ul>
+    )
+  }
+
   render() {
     return (
       <div>
         <Profile />
         <div>
           <input type="text" onChange={this.updateSearchQuery} />
-          <button type="button">Search</button>
+          <button type="button" onClick={this.getJobsList}>
+            Search
+          </button>
         </div>
         <div>{this.renderTypeFilters()}</div>
         <div>{this.renderSalaryFilters()}</div>
+        <div>{this.renderJobsList()}</div>
       </div>
     )
   }
