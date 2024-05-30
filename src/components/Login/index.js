@@ -1,6 +1,7 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
 import {Redirect} from 'react-router-dom'
+import './index.css'
 
 class Login extends Component {
   state = {username: '', password: '', showErrorMsg: false, errorMsg: ''}
@@ -49,13 +50,16 @@ class Login extends Component {
     const {username} = this.state
     return (
       <>
-        <label htmlFor="userName">USERNAME</label>
+        <label htmlFor="userName" className="label-text">
+          USERNAME
+        </label>
         <input
           type="text"
           id="userName"
           placeholder="Username"
           value={username}
           onChange={this.updateUsername}
+          className="input-container"
         />
       </>
     )
@@ -65,13 +69,16 @@ class Login extends Component {
     const {password} = this.state
     return (
       <>
-        <label htmlFor="passWord">PASSWORD</label>
+        <label htmlFor="passWord" className="label-text">
+          PASSWORD
+        </label>
         <input
           type="password"
           id="passWord"
           placeholder="Password"
           value={password}
           onChange={this.updatePassword}
+          className="input-container"
         />
       </>
     )
@@ -85,14 +92,22 @@ class Login extends Component {
       return <Redirect to="/" />
     }
     return (
-      <div>
-        <div>
-          <div>Logo</div>
+      <div className="main-bg">
+        <div className="login-card">
+          <div>
+            <img
+              src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
+              alt="website logo"
+              className="logo-img"
+            />
+          </div>
           <form onSubmit={this.submitForm}>
             <div>{this.renderUsername()}</div>
             <div>{this.renderPassword()}</div>
-            <button type="submit">Login</button>
-            {showErrorMsg ? <p>{errorMsg}</p> : null}
+            <button type="submit" className="submit-btn">
+              Login
+            </button>
+            {showErrorMsg ? <p className="error-text">{errorMsg}</p> : null}
           </form>
         </div>
       </div>
