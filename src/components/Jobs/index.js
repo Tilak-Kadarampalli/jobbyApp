@@ -157,7 +157,7 @@ class Jobs extends Component {
         packagePerAnnum: eachJob.package_per_annum,
         jobDescription: eachJob.job_description,
         companyLogoUrl: eachJob.company_logo_url,
-        employmentType: eachJob.employmentType,
+        employmentType: eachJob.employment_type,
       }))
 
       this.setState({jobsList: updatedJobsList})
@@ -176,7 +176,7 @@ class Jobs extends Component {
     const {jobsList} = this.state
 
     return (
-      <ul>
+      <ul className="jobs-list-container">
         {jobsList.map(eachJob => (
           <JobItem details={eachJob} key={eachJob.id} />
         ))}
@@ -201,15 +201,15 @@ class Jobs extends Component {
             </button>
           </div>
 
-          <Profile />
-          <div className="filters-and-jobs">
-            <div className="filter-container">
+          <div className="jobs-content">
+            <div className="left-column">
+              <Profile />
               <hr className="horz-line" />
               <div>{this.renderTypeFilters()}</div>
-
+              <hr className="horz-line" />
               <div>{this.renderSalaryFilters()}</div>
             </div>
-            <div className="job-list-container">
+            <div className="right-column">
               {jobsLoading === true
                 ? this.renderJobsLoading()
                 : this.renderJobsList()}

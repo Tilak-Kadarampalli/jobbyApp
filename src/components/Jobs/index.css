@@ -1,14 +1,7 @@
 .jobs-bg {
   background-color: black;
   color: white;
-}
-
-.jobs-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
+  width: 100vw;
 }
 
 .search-container {
@@ -16,13 +9,16 @@
   border-radius: 2px;
   display: flex;
   flex-direction: row;
-  width: 80vw;
+  max-width: 530px;
   justify-content: space-between;
+  margin: 20px;
 }
 
 .search-input {
   background-color: black;
   border: 0px;
+  width: 430px;
+  color: white;
 }
 
 .search-button {
@@ -34,46 +30,40 @@
   color: #cbd5e1;
   margin-top: 2px;
 }
-
-.horz-line {
-  height: 2px;
-  color: #cbd5e1;
-  background-color: #cbd5e1;
-  width: 80vw;
-  margin-right: 20px;
+.jobs-content {
+  display: flex;
+  justify-content: center;
+}
+.jobs-content {
+  display: flex;
+  flex-direction: row;
 }
 
-@media only screen and (min-width: 576px) {
-  .search-container {
-    max-width: 40vw;
-    align-self: center;
-    margin-left: 140px;
-  }
+.left-column {
+  margin: 20px 0px 0px 40px;
+  width: 25vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  align-items: flex-start;
+}
 
-  .horz-line {
-    width: 30vw;
-    margin-left: 32px;
-  }
+.right-column {
+  width: 75vw;
+  display: flex;
+  flex-direction: column;
+}
 
-  .filter-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-self: flex-start;
-    max-width: 30vw;
-  }
-  .type-filters {
-    display: flex;
-    flex-direction: column;
+.type-filters {
+  list-style: none;
+}
 
-    list-style: none;
-  }
-  .filters-and-jobs {
-    display: flex;
-    flex-direction: row;
-  }
-  .job-list-container {
-    margin-top: -180px;
-    margin-left: 10px;
-  }
+.horz-line {
+  width: 20vw;
+}
+
+.jobs-list-container {
+  list-style: none;
+  margin-left: -40px;
+  width: 70vw;
 }
