@@ -1,7 +1,11 @@
 import {Component} from 'react'
+import {BsSearch} from 'react-icons/bs'
+import Loader from 'react-loader-spinner'
 import Cookies from 'js-cookie'
+import Header from '../Header'
 import Profile from '../Profile'
 import JobItem from '../JobItem'
+import './index.css'
 
 const employmentTypesList = [
   {
@@ -42,7 +46,13 @@ const salaryRangesList = [
 ]
 
 class Jobs extends Component {
-  state = {employmentType: [], minimumPackage: 0, searchQuery: '', jobsList: []}
+  state = {
+    employmentType: [],
+    minimumPackage: 0,
+    searchQuery: '',
+    jobsList: [],
+    jobsLoading: false,
+  }
 
   componentDidMount() {
     this.getJobsList()
@@ -70,7 +80,8 @@ class Jobs extends Component {
   renderTypeFilters = () => {
     const {employmentType} = this.state
     return (
-      <ul>
+      <ul className="type-filters">
+        <p>Type of employment</p>
         {employmentTypesList.map(eachType => (
           <li key={eachType.employmentTypeId}>
             <input
@@ -95,20 +106,23 @@ class Jobs extends Component {
     const {minimumPackage} = this.state
 
     return (
-      <ul>
-        {salaryRangesList.map(eachType => (
-          <li key={eachType.salaryRangeId}>
-            <input
-              type="radio"
-              value={eachType.salaryRangeId}
-              id={eachType.salaryRangeId}
-              checked={minimumPackage === parseInt(eachType.salaryRangeId)}
-              onChange={() => this.onChangeSalary(eachType.salaryRangeId)}
-            />
-            <label htmlFor={eachType.salaryRangeId}>{eachType.label}</label>
-          </li>
-        ))}
-      </ul>
+      <>
+        <ul className="type-filters">
+          <p>Salary Range</p>
+          {salaryRangesList.map(eachType => (
+            <li key={eachType.salaryRangeId}>
+              <input
+                type="radio"
+                value={eachType.salaryRangeId}
+                id={eachType.salaryRangeId}
+                checked={minimumPackage === parseInt(eachType.salaryRangeId)}
+                onChange={() => this.onChangeSalary(eachType.salaryRangeId)}
+              />
+              <label htmlFor={eachType.salaryRangeId}>{eachType.label}</label>
+            </li>
+          ))}
+        </ul>
+      </>
     )
   }
 
@@ -117,6 +131,7 @@ class Jobs extends Component {
   }
 
   getJobsList = async () => {
+    this.setState({jobsLoading: true})
     const {employmentType, minimumPackage, searchQuery} = this.state
     const typeFilter = employmentType.join(',')
 
@@ -132,6 +147,7 @@ class Jobs extends Component {
     const response = await fetch(url, options)
     if (response.ok === true) {
       const data = await response.json()
+      this.setState({jobsLoading: false})
 
       const updatedJobsList = data.jobs.map(eachJob => ({
         id: eachJob.id,
@@ -150,6 +166,12 @@ class Jobs extends Component {
     }
   }
 
+  renderJobsLoading = () => (
+    <div className="jobs-loader-container">
+      <Loader type="ThreeDots" color="#6366f1" height="50" width="50" />
+    </div>
+  )
+
   renderJobsList = () => {
     const {jobsList} = this.state
 
@@ -163,18 +185,37 @@ class Jobs extends Component {
   }
 
   render() {
+    const {jobsLoading} = this.state
     return (
-      <div>
-        <Profile />
-        <div>
-          <input type="text" onChange={this.updateSearchQuery} />
-          <button type="button" onClick={this.getJobsList}>
-            Search
-          </button>
+      <div className="jobs-bg">
+        <Header />
+        <div className="jobs-container">
+          <div className="search-container">
+            <input
+              className="search-input"
+              type="text"
+              onChange={this.updateSearchQuery}
+            />
+            <button onClick={this.getJobsList} className="search-button">
+              <BsSearch className="search-icon" />.
+            </button>
+          </div>
+
+          <Profile />
+          <div className="filters-and-jobs">
+            <div className="filter-container">
+              <hr className="horz-line" />
+              <div>{this.renderTypeFilters()}</div>
+
+              <div>{this.renderSalaryFilters()}</div>
+            </div>
+            <div className="job-list-container">
+              {jobsLoading === true
+                ? this.renderJobsLoading()
+                : this.renderJobsList()}
+            </div>
+          </div>
         </div>
-        <div>{this.renderTypeFilters()}</div>
-        <div>{this.renderSalaryFilters()}</div>
-        <div>{this.renderJobsList()}</div>
       </div>
     )
   }

@@ -1,6 +1,7 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
+import './index.css'
 
 const apiStateConstants = {
   initial: 'INITIAL',
@@ -50,21 +51,22 @@ class Profile extends Component {
     const {name, profileImageUrl, shortBio} = profileDetails
 
     return (
-      <div>
-        <h1>{name}</h1>
-        <p>{shortBio}</p>
+      <div className="profile-card">
+        <img src={profileImageUrl} className="profile-img" />
+        <h1 className="profile-name">{name}</h1>
+        <p className="profile-bio">{shortBio}</p>
       </div>
     )
   }
 
   renderLoadingView = () => (
-    <div className="profile-loader-container">
-      <Loader type="ThreeDots" color="#ffffff" height="50" width="50" />
+    <div className="profile-loader-container profile-card">
+      <Loader type="ThreeDots" color="#6366f1" height="50" width="50" />
     </div>
   )
 
   renderFailureView = () => (
-    <div>
+    <div className="profile-card">
       <button onClick={this.getProfileDetails}>Retry</button>
     </div>
   )
