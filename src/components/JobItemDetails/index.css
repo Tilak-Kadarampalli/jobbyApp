@@ -1,0 +1,54 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.job-details-page {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.job-details-container {
+  display: flex;
+  padding: 40px;
+  flex-direction: column;
+  color: white;
+}
+
+.job-details-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #2f2f2f;
+  padding: 40px;
+  border-radius: 20px;
+  margin: 10px;
+}
+
+.title-label {
+  display: flex;
+  flex-direction: row;
+}
+
+.company-logo {
+  width: 56px;
+  height: 56px;
+}
+.title-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-weight: bold;
+
+  margin-left: 20px;
+  max-height: 56px;
+}
+.title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.star-logo {
+  color: gold;
+}
