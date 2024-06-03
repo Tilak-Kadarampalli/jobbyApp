@@ -1,6 +1,8 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
-import {AiFillStar} from 'react-icons/ai'
+import {AiFillStar, AiFillEnvironment} from 'react-icons/ai'
+import {IoBriefcase} from 'react-icons/io5'
+import {BsBoxArrowUpRight} from 'react-icons/bs'
 import Header from '../Header'
 import SkillCard from '../SkillCard'
 import SimilarJobItem from '../SimilarJobItem'
@@ -109,6 +111,9 @@ class JobItemDetails extends Component {
     const {
       jobDescription,
       lifeAtCompanyDesc,
+      companyWebsiteUrl,
+      employmentType,
+      packagePerAnnum,
       title,
       rating,
       companyLogoUrl,
@@ -117,13 +122,13 @@ class JobItemDetails extends Component {
     return (
       <div className="job-details-container">
         <div className="job-details-card">
-          <div className="title-label">
+          <div className="top-label">
             <img
               src={companyLogoUrl}
               alt="company logo"
               className="company-logo"
             />
-            <div className="title-text">
+            <div className="title-rating">
               <h1 className="title">{title}</h1>
 
               <p>
@@ -134,8 +139,35 @@ class JobItemDetails extends Component {
               </p>
             </div>
           </div>
-          <div className="location-label">{location}</div>
-          <h1>{jobDescription}</h1>
+          <div className="location-label">
+            <div className="location-label">
+              <p>
+                <span>
+                  <AiFillEnvironment className="" />
+                </span>{' '}
+                {location}
+              </p>
+              <p>
+                <span>
+                  <IoBriefcase />
+                </span>{' '}
+                {employmentType}
+              </p>
+            </div>
+            <p className="package-text">{packagePerAnnum}</p>
+          </div>
+          <hr className="h-line" />
+          <div className="description-container">
+            <div className="desc-head-label">
+              <h1 className="sub-heads">Description</h1>
+              <a href={companyWebsiteUrl} className="visit">
+                Visit
+                <BsBoxArrowUpRight />
+              </a>
+            </div>
+            <p>{jobDescription}</p>
+          </div>
+
           <p>{lifeAtCompanyDesc}</p>
           <div> {this.renderSkillsList()}</div>
         </div>
