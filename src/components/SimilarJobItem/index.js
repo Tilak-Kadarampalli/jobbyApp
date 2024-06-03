@@ -1,3 +1,5 @@
+import {AiFillStar, AiFillEnvironment} from 'react-icons/ai'
+import {IoBriefcase} from 'react-icons/io5'
 import './index.css'
 
 const SimilarJobItem = props => {
@@ -13,11 +15,36 @@ const SimilarJobItem = props => {
   } = details
 
   return (
-    <li>
+    <li className="similar-job-card">
+      <div className="top-label">
+        <img src={companyLogoUrl} alt="company logo" className="company-logo" />
+        <div className="title-rating">
+          <h1 className="title">{title}</h1>
+          <p>
+            <span>
+              <AiFillStar className="star-logo" />
+            </span>{' '}
+            {rating}
+          </p>
+        </div>
+      </div>
       <div>
-        <img src={companyLogoUrl} />
-        <h1>{title}</h1>
-        <p>{employmentType}</p>
+        <h1 className="sub-heads">Description</h1>
+        <p> {jobDescription}</p>
+      </div>
+      <div className="location-label">
+        <p>
+          <span>
+            <AiFillEnvironment className="" />
+          </span>{' '}
+          {location}
+        </p>
+        <p>
+          <span>
+            <IoBriefcase />
+          </span>{' '}
+          {employmentType}
+        </p>
       </div>
     </li>
   )

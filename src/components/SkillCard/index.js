@@ -5,9 +5,9 @@ const SkillCard = props => {
   const {imageUrl, name} = details
 
   return (
-    <li>
-      <img src={imageUrl} alt={name} />
-      <h1>{name}</h1>
+    <li className="skill-item">
+      <img className="skill-logo" src={imageUrl} alt={name} />
+      <h1 className="skill-name">{name}</h1>
     </li>
   )
 }

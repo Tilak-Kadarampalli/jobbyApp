@@ -1,0 +1,16 @@
+.skill-name {
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.skill-logo {
+  width: 44px;
+  height: 44px;
+}
+
+.skill-item {
+  display: flex;
+  min-width: 25vw;
+  flex-direction: row;
+  margin: 20px;
+}

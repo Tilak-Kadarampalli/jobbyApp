@@ -77,8 +77,18 @@ class JobItemDetails extends Component {
   }
 
   renderFailureView = () => (
-    <div>
-      <h1>Something went wrong!</h1>
+    <div className="not-found-page">
+      <div>
+        <img
+          src="https://assets.ccbp.in/frontend/react-js/failure-img.png "
+          alt="failure view"
+        />
+        <h1>Oops! Something Went Wrong</h1>
+        <p>We cannot seem to find the page you are looking for.</p>
+        <button type="button" onClick={this.getJobItemDetails}>
+          Retry
+        </button>
+      </div>
     </div>
   )
 
@@ -86,7 +96,7 @@ class JobItemDetails extends Component {
     const {skillsList} = this.state
 
     return (
-      <ul>
+      <ul className="skill-container">
         {skillsList.map(eachSkill => (
           <SkillCard details={eachSkill} key={eachSkill.name} />
         ))}
@@ -98,7 +108,7 @@ class JobItemDetails extends Component {
     const {similarJobs} = this.state
 
     return (
-      <ul>
+      <ul className="skill-container">
         {similarJobs.map(eachJob => (
           <SimilarJobItem key={eachJob.id} details={eachJob} />
         ))}
@@ -111,6 +121,7 @@ class JobItemDetails extends Component {
     const {
       jobDescription,
       lifeAtCompanyDesc,
+      lifeAtCompanyImgUrl,
       companyWebsiteUrl,
       employmentType,
       packagePerAnnum,
@@ -167,11 +178,19 @@ class JobItemDetails extends Component {
             </div>
             <p>{jobDescription}</p>
           </div>
-
-          <p>{lifeAtCompanyDesc}</p>
-          <div> {this.renderSkillsList()}</div>
+          <div>
+            <h1 className="sub-heads">Skills</h1> {this.renderSkillsList()}
+          </div>
+          <h1 className="sub-heads">Life at Company</h1>
+          <div className="life-at-company">
+            <p>{lifeAtCompanyDesc}</p>
+            <img src={lifeAtCompanyImgUrl} alt="life at company" />
+          </div>
         </div>
-        <div>{this.renderSimilarJobsList()}</div>
+        <div>
+          <h1 className="sub-heads">Similar Jobs</h1>
+          {this.renderSimilarJobsList()}
+        </div>
       </div>
     )
   }

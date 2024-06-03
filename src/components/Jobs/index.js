@@ -172,15 +172,34 @@ class Jobs extends Component {
     </div>
   )
 
+  renderNoJobs = () => (
+    <>
+      <div>
+        <img
+          src="https://assets.ccbp.in/frontend/react-js/no-jobs-img.png "
+          alt="no jobs"
+        />
+        <h1>No jobs found</h1>
+        <p>We could not find any jobs. try other filters.</p>
+      </div>
+    </>
+  )
+
   renderJobsList = () => {
     const {jobsList} = this.state
 
     return (
-      <ul className="jobs-list-container">
-        {jobsList.map(eachJob => (
-          <JobItem details={eachJob} key={eachJob.id} />
-        ))}
-      </ul>
+      <div>
+        {jobsList.length === 0 ? (
+          <div>{this.renderNoJobs()}</div>
+        ) : (
+          <ul className="jobs-list-container">
+            {jobsList.map(eachJob => (
+              <JobItem details={eachJob} key={eachJob.id} />
+            ))}
+          </ul>
+        )}
+      </div>
     )
   }
 

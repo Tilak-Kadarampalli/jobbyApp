@@ -1,0 +1,9 @@
+.similar-job-card {
+  display: flex;
+  flex-direction: column;
+  max-width: 30vw;
+  background-color: #2f2f2f;
+  border-radius: 20px;
+  margin: 20px 20px 20px 20px;
+  padding: 40px;
+}
