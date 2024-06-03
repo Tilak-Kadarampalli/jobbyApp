@@ -52,7 +52,7 @@ class Profile extends Component {
 
     return (
       <div className="profile-card">
-        <img src={profileImageUrl} className="profile-img" />
+        <img src={profileImageUrl} className="profile-img" alt="profile" />
         <h1 className="profile-name">{name}</h1>
         <p className="profile-bio">{shortBio}</p>
       </div>
@@ -60,14 +60,16 @@ class Profile extends Component {
   }
 
   renderLoadingView = () => (
-    <div className="profile-loader-container profile-card">
+    <div className="profile-loader-container profile-card" data-testid="loader">
       <Loader type="ThreeDots" color="#6366f1" height="50" width="50" />
     </div>
   )
 
   renderFailureView = () => (
     <div className="profile-card">
-      <button onClick={this.getProfileDetails}>Retry</button>
+      <button type="button" onClick={this.getProfileDetails}>
+        Retry
+      </button>
     </div>
   )
 

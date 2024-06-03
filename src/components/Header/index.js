@@ -12,27 +12,35 @@ const Header = props => {
 
   return (
     <nav className="header-main">
-      <div>
-        <img
-          src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
-          alt="website logo"
-          className="header-logo-img"
-        />
-      </div>
-      <div className="link-container">
-        <Link className="link-el" to="/">
-          <FaHome color="#ffffff" className="header-icons" />
-          <p className="link-text">Home</p>
-        </Link>
-        <Link className="link-el" to="/jobs">
-          <FaBriefcase color="#ffffff" className="header-icons" />
-          <p className="link-text">Jobs</p>
-        </Link>
-      </div>
+      <ul className="link-container">
+        <li>
+          <img
+            src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
+            alt="website logo"
+            className="header-logo-img"
+          />
+        </li>
+        <li className="link-tabs">
+          <Link className="link-el" to="/">
+            <FaHome color="#ffffff" className="header-icons" />
+            <p className="link-text">Home</p>
+          </Link>
+        </li>
 
-      <button className="logout-btn" type="button" onClick={handleLogout}>
-        Logout
-      </button>
+        <li>
+          <Link className="link-el" to="/jobs">
+            <FaBriefcase color="#ffffff" className="header-icons" />
+            <p className="link-text">Jobs</p>
+          </Link>
+        </li>
+
+        <li className="logout-container">
+          {' '}
+          <button className="logout-btn" type="button" onClick={handleLogout}>
+            Logout
+          </button>
+        </li>
+      </ul>
     </nav>
   )
 }

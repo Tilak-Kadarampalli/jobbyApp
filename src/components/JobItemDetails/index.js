@@ -136,7 +136,7 @@ class JobItemDetails extends Component {
           <div className="top-label">
             <img
               src={companyLogoUrl}
-              alt="company logo"
+              alt="job details company logo"
               className="company-logo"
             />
             <div className="title-rating">

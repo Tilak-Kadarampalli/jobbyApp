@@ -18,7 +18,11 @@ const JobItem = props => {
     <li className="job-item">
       <Link to={`/jobs/${id}`} style={{textDecoration: 'none', color: 'white'}}>
         <div className="top-label">
-          <img src={companyLogoUrl} alt="" className="company-logo" />
+          <img
+            src={companyLogoUrl}
+            alt="company logo"
+            className="company-logo"
+          />
           <div className="title-rating">
             <p>{title}</p>
             <p className="rating">
