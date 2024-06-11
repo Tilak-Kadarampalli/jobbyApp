@@ -2,6 +2,7 @@ import {Component} from 'react'
 import Cookies from 'js-cookie'
 import {AiFillStar, AiFillEnvironment} from 'react-icons/ai'
 import {IoBriefcase} from 'react-icons/io5'
+import Loader from 'react-loader-spinner'
 import {BsBoxArrowUpRight} from 'react-icons/bs'
 import Header from '../Header'
 import SkillCard from '../SkillCard'
@@ -9,7 +10,12 @@ import SimilarJobItem from '../SimilarJobItem'
 import './index.css'
 
 class JobItemDetails extends Component {
-  state = {jobDetails: {}, skillsList: [], similarJobs: [], apiStatus: true}
+  state = {
+    jobDetails: {},
+    skillsList: [],
+    similarJobs: [],
+    apiStatus: 'loading',
+  }
 
   componentDidMount() {
     this.getJobItemDetails()
@@ -69,9 +75,10 @@ class JobItemDetails extends Component {
         jobDetails: processedData,
         skillsList,
         similarJobs,
+        apiStatus: 'success',
       })
     } else {
-      this.setState({apiStatus: false})
+      this.setState({apiStatus: 'failure'})
     }
   }
 
@@ -114,6 +121,12 @@ class JobItemDetails extends Component {
       </ul>
     )
   }
+
+  renderJobDetailsLoading = () => (
+    <div className="jobs-loader-container" data-testid="loader">
+      <Loader type="ThreeDots" color="#6366f1" height="50" width="50" />
+    </div>
+  )
 
   renderSuccessView = () => {
     const {jobDetails} = this.state
@@ -200,16 +213,31 @@ class JobItemDetails extends Component {
   render() {
     const {apiStatus} = this.state
 
-    return (
-      <div className="job-details-page">
-        <Header />
-        {apiStatus === true ? (
-          <> {this.renderSuccessView()} </>
-        ) : (
-          <>{this.renderFailureView()} </>
-        )}
-      </div>
-    )
+    switch (apiStatus) {
+      case 'success':
+        return (
+          <div className="job-details-page">
+            <Header /> {this.renderSuccessView()}
+          </div>
+        )
+
+      case 'failure':
+        return (
+          <div className="job-details-page">
+            <Header /> {this.renderFailureView()}
+          </div>
+        )
+
+      case 'loading':
+        return (
+          <div className="job-details-page">
+            <Header /> {this.renderJobDetailsLoading()}
+          </div>
+        )
+
+      default:
+        return this.renderJobDetailsLoading()
+    }
   }
 }
 

@@ -43,40 +43,14 @@ const JobItem = props => {
 
         <div className="middle-label">
           <div className="middle-label">
-            <p className="middle-text">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                className="bi bi-geo-alt-fill"
-                viewBox="0 0 16 16"
-              >
-                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
-              </svg>{' '}
-              {location}
-            </p>
-            <p className="middle-text">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                className="bi bi-briefcase-fill"
-                viewBox="0 0 16 16"
-              >
-                <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v1.384l7.614 2.03a1.5 1.5 0 0 0 .772 0L16 5.884V4.5A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5" />
-                <path d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6.85L8.129 8.947a.5.5 0 0 1-.258 0L0 6.85z" />
-              </svg>
-              {'  '}
-              {employmentType}
-            </p>
+            <p className="middle-text">{location}</p>
+            <p className="middle-text">{employmentType}</p>
           </div>
           <p className="middle-text">{packagePerAnnum}</p>
         </div>
         <hr />
         <div>
-          <p style={{fontWeight: '500'}}>Description</p>
+          <h1 style={{fontWeight: '500'}}>Description</h1>
           <p>{jobDescription}</p>
         </div>
       </Link>
