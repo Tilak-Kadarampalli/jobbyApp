@@ -52,6 +52,7 @@ class Jobs extends Component {
     searchQuery: '',
     jobsList: [],
     jobsLoading: false,
+    jobsError: false,
   }
 
   componentDidMount() {
@@ -81,7 +82,7 @@ class Jobs extends Component {
     const {employmentType} = this.state
     return (
       <ul className="type-filters">
-        <p>Type of employment</p>
+        <h1>Type of employment</h1>
         {employmentTypesList.map(eachType => (
           <li key={eachType.employmentTypeId}>
             <input
@@ -108,7 +109,7 @@ class Jobs extends Component {
     return (
       <>
         <ul className="type-filters">
-          <p>Salary Range</p>
+          <h1>Salary Range</h1>
           {salaryRangesList.map(eachType => (
             <li key={eachType.salaryRangeId}>
               <input
@@ -160,8 +161,9 @@ class Jobs extends Component {
         employmentType: eachJob.employment_type,
       }))
 
-      this.setState({jobsList: updatedJobsList})
+      this.setState({jobsList: updatedJobsList, jobsError: false})
     } else {
+      this.setState({jobsError: true})
       console.log('Error')
     }
   }
@@ -185,6 +187,22 @@ class Jobs extends Component {
     </>
   )
 
+  renderJobsFailureView = () => (
+    <>
+      <div>
+        <img
+          src="https://assets.ccbp.in/frontend/react-js/jobs-failure-img.png "
+          alt="failure view"
+        />
+        <h1>Oops! Something Went Wrong</h1>
+        <p>We cannot seem to find the page you are looking for</p>
+        <button type="button" onClick={this.getJobsList}>
+          Retry
+        </button>
+      </div>
+    </>
+  )
+
   renderJobsList = () => {
     const {jobsList} = this.state
 
@@ -204,7 +222,7 @@ class Jobs extends Component {
   }
 
   render() {
-    const {jobsLoading} = this.state
+    const {jobsLoading, jobsError} = this.state
     return (
       <div className="jobs-bg">
         <Header />
@@ -212,7 +230,7 @@ class Jobs extends Component {
           <div className="search-container">
             <input
               className="search-input"
-              type="text"
+              type="search"
               onChange={this.updateSearchQuery}
             />
             <button
@@ -234,8 +252,9 @@ class Jobs extends Component {
               <div>{this.renderSalaryFilters()}</div>
             </div>
             <div className="right-column">
-              {jobsLoading === true
-                ? this.renderJobsLoading()
+              {jobsLoading && this.renderJobsLoading()}
+              {jobsError === true
+                ? this.renderJobsFailureView()
                 : this.renderJobsList()}
             </div>
           </div>

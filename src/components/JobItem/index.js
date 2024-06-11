@@ -24,7 +24,7 @@ const JobItem = props => {
             className="company-logo"
           />
           <div className="title-rating">
-            <p>{title}</p>
+            <h1>{title}</h1>
             <p className="rating">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

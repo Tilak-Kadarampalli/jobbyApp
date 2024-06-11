@@ -7,7 +7,6 @@ import Header from '../Header'
 import SkillCard from '../SkillCard'
 import SimilarJobItem from '../SimilarJobItem'
 import './index.css'
-import 'bootstrap-icons/font/bootstrap-icons.css'
 
 class JobItemDetails extends Component {
   state = {jobDetails: {}, skillsList: [], similarJobs: [], apiStatus: true}
@@ -98,7 +97,7 @@ class JobItemDetails extends Component {
     return (
       <ul className="skill-container">
         {skillsList.map(eachSkill => (
-          <SkillCard details={eachSkill} key={eachSkill.name} />
+          <SkillCard details={eachSkill} />
         ))}
       </ul>
     )
@@ -110,7 +109,7 @@ class JobItemDetails extends Component {
     return (
       <ul className="skill-container">
         {similarJobs.map(eachJob => (
-          <SimilarJobItem key={eachJob.id} details={eachJob} />
+          <SimilarJobItem details={eachJob} />
         ))}
       </ul>
     )
@@ -148,6 +147,7 @@ class JobItemDetails extends Component {
                 </span>{' '}
                 {rating}
               </p>
+              <p>{rating}</p>
             </div>
           </div>
           <div className="location-label">
@@ -158,6 +158,7 @@ class JobItemDetails extends Component {
                 </span>{' '}
                 {location}
               </p>
+              <p>{Location}</p>
               <p>
                 <span>
                   <IoBriefcase />
@@ -168,6 +169,7 @@ class JobItemDetails extends Component {
             <p className="package-text">{packagePerAnnum}</p>
           </div>
           <hr className="h-line" />
+          <h1>Description</h1>
           <div className="description-container">
             <div className="desc-head-label">
               <h1 className="sub-heads">Description</h1>
